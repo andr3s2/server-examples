@@ -124,8 +124,8 @@ function getS3Client() {
 // Only needed if the delete file feature is enabled
 function deleteObject() {
     getS3Client()->deleteObject(array(
-        'Bucket' => $_POST['bucket'],
-        'Key' => $_POST['key']
+        'Bucket' => $_GET['bucket'],
+        'Key' => $_GET['key']
     ));
 }
 
