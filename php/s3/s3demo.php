@@ -34,7 +34,10 @@ $clientPrivateKey = $_SERVER['AWS_SECRET_KEY'];
 // handler via S3's SDK, as we are doing in this example.
 $serverPublicKey = $_SERVER['PARAM1'];
 $serverPrivateKey = $_SERVER['PARAM2'];
-
+// The SDK version
+$version = '2006-03-01';
+//the bucket's region
+$region = 'us-east-1';
 // The following variables are used when validating the policy document
 // sent by the uploader. 
 $expectedBucketName = "upload.fineuploader.com";
@@ -84,11 +87,15 @@ function getRequestMethod() {
 }
 
 function getS3Client() {
-    global $serverPublicKey, $serverPrivateKey;
+    global $serverPublicKey, $serverPrivateKey, $region, $version;
 
     return S3Client::factory(array(
-        'key' => $serverPublicKey,
-        'secret' => $serverPrivateKey
+         'region' => $region,
+         'version' => $version,
+          'credentials' => [
+                  'key' => $serverPublicKey,
+                  'secret' => $serverPrivateKey
+          ]
     ));
 }
 
